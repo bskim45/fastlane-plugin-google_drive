@@ -1,6 +1,8 @@
-# google_drive plugin
+# google_drive `fastlane` plugin
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-google_drive)
+[![Gem Version Badge](https://badge.fury.io/rb/fastlane-plugin-google_drive.svg)](https://badge.fury.io/rb/fastlane-plugin-google_drive)
+[![Build Status](https://travis-ci.org/bskim45/fastlane-plugin-google_drive.svg?branch=master)](https://travis-ci.org/bskim45/fastlane-plugin-google_drive)
 
 ## Getting Started
 
@@ -12,26 +14,25 @@ fastlane add_plugin google_drive
 
 ## About google_drive
 
-Upload files to Google Drive
+Upload files to Google Drive folder.
 
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+Download feature is not implemented yet. PR is always welcome.
 
 ## Example
 
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
-
 ## Run tests for this plugin
 
 To run both the tests, and code style validation, run
 
-```
+```bash
 rake
 ```
 
 To automatically fix many of the styling issues, use
-```
+
+```bash
 rubocop -a
 ```
 
@@ -50,3 +51,9 @@ For more information about how the `fastlane` plugin system works, check out the
 ## About _fastlane_
 
 _fastlane_ is the easiest way to automate beta deployments and releases for your iOS and Android apps. To learn more, check out [fastlane.tools](https://fastlane.tools).
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2018 Bumsoo Kim (<https://bsk.im>)
