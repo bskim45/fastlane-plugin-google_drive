@@ -3,10 +3,6 @@ cache: bundler
 rvm:
 - 2.2.4
 
-env:
-  global:
-    secure: uL/BvJj4OaAb6mErntqc7ogDtEHAAab6Zp6sNoP5if1KZ9pxCP8XW17OjQJjuela21gx3HoSbp/cBSORxGZM3HbvyYNYVc6hUc+uAC6l0kK4mbdXhwAq+uX3Eh/M5IeP6oV3bCrSSo03cGzBpdTvscOaTk3kdR/2Grk02PB7hTqsIP7vdlksiyzoBPFhdiM/ks9Uf3zIlLpT/YwY0/zneewwUnEQnZsPLBxWaULqlpjc3pMQG2ljS9LZTUxZ6zd5aiOwOcWqDrPtLgu5wF/5FgnFPwmjLZl/SYxrgpwjTsbYAuagD1DrOiY6a9+JHwin+MeL66OYhHygsYJ7Wz8sux1vvtfyIxpUp8E7qKdsqaY8JPfy6o5ChE0wA+CqW6MF8/K7/lRvuza+4g+VNyfgLzKD4sXZwP3V/t8OBs8yREWtMcJWwsUrTo0tbtXbrY/I0tMXOUnk0NrajE3w4qF1gyfdT5yW624afKRGO3dY+MXHzXjB/ZYnEeyY9eiBeFucgLeWD6PW+zoVZzIoOdA3BDnrRDP28rud/mx5TvJTXatixZi3lqM0YGSf3pini2lHE3CESSO2/5/MpD6fRtzJOeIPy/BsBSb09dRvAYDRKkP9Udrn+PqL4hZgymz/rjs/LjdvkDBpn1yRXFBqH6tgFHBt9PwlI1Te7vPoMNa2tKU=
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_411b6a7e5ad0_key -iv $encrypted_411b6a7e5ad0_iv -in spec/fixtures/drive_key.json.enc -out drive_key.json -d
 
@@ -17,7 +13,7 @@ before_script:
 
 # test and build
 script:
-- bundle exec rspec
+- bundle exec rake
 
 # deploy gem
 deploy:
