@@ -30,3 +30,10 @@ deploy:
 # send the coverage data to Code Climate
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+  slack:
+    secure: "FQ9gr4R3VcCr7FYE2wYIDHMOGyaIbWiH5O0stjSa83OFcmjJmZPb2A261OWtpSEJQVq0CrFSzKI0PA/uT5K+3qRVddASY9WqQP7JHzYMdjIhEoGkD4sd9DB/WWOd1igzgJf8dTYGJjv73HzHjRL9uB2du+I+egc3lbWtrRaNF7HlTOVRPn4gDuoElCJZ/syuoxwLYSStUl7Oozxw8CgX1ht5rxFJN7jahomSHI50sIzf6n9znanEff7cw+IW9SaRNBbD+KPK0LR2Owd/vU7QnRYwlOoN0QdTNkHkwxglfDWEcRRLvRSc5kOk7YtRzKxh2hGG/LQXf0B86QQRy5mJ8FnORfGVOqNwICBGRhfrspqGsSyCJ2SAJ+I/5isNHeOEsJI5lbj4cahXpwhp7o2EbgFAYAJxhJCS5Wwyp914fLS3Z8Tin/L+oWSJ8MJbOPsWDN6eamCULUDZuJ0eykD5RAEyGMDk7Lb2fAUnymXvB2MgYPxJwW8T01rUPLYzr2wzOmQ/D4KWZpmeUUvOBH4S7lx2Rc3yFDgEY5piePCEpDTny7VBSS8NYKUZ1g/r+08JNrOUWCcFsEp9su6b5kAxGlZRVk+DsLTw3tcveLB51kMHRgUZufIYfZEpPxeOQlmMKDyCBcnaufvjJehZpgI3TJh1DGbWyZFGjyuxe9tomw4="
