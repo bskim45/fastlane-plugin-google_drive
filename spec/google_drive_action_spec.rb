@@ -7,7 +7,7 @@ describe Fastlane::Actions::GoogleDriveUploadAction do
     raise("specify upload test folder id") unless ENV['TEST_UPLOAD_FOLDER_ID'] and !ENV['TEST_UPLOAD_FOLDER_ID'].empty?
     raise("drive key json file does not exists") unless File.exist?(@key_path)
   end
-  
+
   before(:each) do
     ENV['GDRIVE_SERVICE_ACCOUNT'] = ENV['TEST_SERVICE_ACCOUNT']
   end

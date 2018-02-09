@@ -3,7 +3,7 @@ lane :test do |options|
   service_account = options[:service_account] || UI.confirm('Is service account?: ')
   folder_id = options[:folder_id] || UI.input('Please enter Google Drive target id: ')
   file_to_upload = options[:upload_file] || UI.input('Please enter path for file to upload: ')
-  
+
   google_drive_upload(
     drive_keyfile: drive_keyfile,
     service_account: service_account,
