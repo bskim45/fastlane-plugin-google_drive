@@ -12,12 +12,12 @@ module Fastlane
         UI.message("Using config file: #{params[:drive_keyfile]}")
 
         session = Helper::GoogleDriveHelper.setup(
-            keyfile: params[:drive_keyfile],
-            service_account: params[:service_account]
+          keyfile: params[:drive_keyfile],
+          service_account: params[:service_account]
         )
 
         folder = Helper::GoogleDriveHelper.file_by_id(
-            session: session, fid: params[:folder_id]
+          session: session, fid: params[:folder_id]
         )
 
         title = params[:folder_title]
@@ -40,50 +40,50 @@ module Fastlane
 
       def self.details
         [
-            'Create new folder on Google Drive',
-            'See https://github.com/gimite/google-drive-ruby/blob/master/doc/authorization.md to get a keyfile'
+          'Create new folder on Google Drive',
+          'See https://github.com/gimite/google-drive-ruby/blob/master/doc/authorization.md to get a keyfile'
         ].join("\n")
       end
 
       def self.available_options
         [
-            FastlaneCore::ConfigItem.new(key: :drive_keyfile,
-                                         env_name: 'GDRIVE_KEY_FILE',
-                                         description: 'Json config file',
-                                         type: String,
-                                         default_value: 'drive_key.json',
-                                         verify_block: proc do |value|
-                                           UI.user_error!("Couldn't find config keyfile at path '#{value}'") unless File.exist?(value)
-                                         end),
-            FastlaneCore::ConfigItem.new(key: :service_account,
-                                         env_name: 'GDRIVE_SERVICE_ACCOUNT',
-                                         description: 'Credential is service account',
-                                         optional: true,
-                                         is_string: false,
-                                         default_value: false),
-            FastlaneCore::ConfigItem.new(key: :folder_id,
-                                         env_name: "GDRIVE_UPLOAD_FOLDER_ID",
-                                         description: "Upload target folder id",
-                                         optional: false,
-                                         type: String,
-                                         verify_block: proc do |value|
-                                           UI.user_error!("No target folder id given, pass using `folder_id: 'some_id'`") unless value and !value.empty?
-                                         end),
-            FastlaneCore::ConfigItem.new(key: :folder_title,
-                                         env_name: "GDRIVE_FOLDER_NAME",
-                                         description: "Folder title of new one",
-                                         optional: false,
-                                         type: String,
-                                         verify_block: proc do |value|
-                                           UI.user_error!("No folder title given") if value.nil? || value.empty?
-                                         end)
+          FastlaneCore::ConfigItem.new(key: :drive_keyfile,
+                                       env_name: 'GDRIVE_KEY_FILE',
+                                       description: 'Json config file',
+                                       type: String,
+                                       default_value: 'drive_key.json',
+                                       verify_block: proc do |value|
+                                         UI.user_error!("Couldn't find config keyfile at path '#{value}'") unless File.exist?(value)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :service_account,
+                                       env_name: 'GDRIVE_SERVICE_ACCOUNT',
+                                       description: 'Credential is service account',
+                                       optional: true,
+                                       is_string: false,
+                                       default_value: false),
+          FastlaneCore::ConfigItem.new(key: :folder_id,
+                                       env_name: "GDRIVE_UPLOAD_FOLDER_ID",
+                                       description: "Upload target folder id",
+                                       optional: false,
+                                       type: String,
+                                       verify_block: proc do |value|
+                                         UI.user_error!("No target folder id given, pass using `folder_id: 'some_id'`") unless value and !value.empty?
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :folder_title,
+                                       env_name: "GDRIVE_FOLDER_NAME",
+                                       description: "Folder title of new one",
+                                       optional: false,
+                                       type: String,
+                                       verify_block: proc do |value|
+                                         UI.user_error!("No folder title given") if value.nil? || value.empty?
+                                       end)
         ]
       end
 
       def self.output
         [
-            ['GDRIVE_CREATED_FOLDER_ID', 'ID of the created folder'],
-            ['GDRIVE_CREATED_FOLDER_URL', 'Link to the created folder']
+          ['GDRIVE_CREATED_FOLDER_ID', 'ID of the created folder'],
+          ['GDRIVE_CREATED_FOLDER_URL', 'Link to the created folder']
         ]
       end
 

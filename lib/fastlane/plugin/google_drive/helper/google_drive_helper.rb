@@ -1,7 +1,5 @@
 require 'fastlane_core/ui/ui'
 require 'google_drive'
-
-# rubocop:disable Lint/RescueException
 module Fastlane
   UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
 
