@@ -3,7 +3,7 @@ require 'dotenv/load'
 describe Fastlane::Actions::CreateGoogleDriveFolderAction do
   before(:context) do
     @key_path = File.join(File.dirname(File.dirname(__FILE__)), 'drive_key.json')
-    # raise("specify upload test folder id") unless ENV['TEST_UPLOAD_FOLDER_ID'] and !ENV['TEST_UPLOAD_FOLDER_ID'].empty?
+    raise("specify upload test folder id") unless ENV['TEST_UPLOAD_FOLDER_ID'] and !ENV['TEST_UPLOAD_FOLDER_ID'].empty?
     raise("drive key json file does not exists") unless File.exist?(@key_path)
   end
 
