@@ -48,15 +48,15 @@ describe Fastlane::Actions::CreateGoogleDriveFolderAction do
       end.to raise_error(FastlaneCore::Interface::FastlaneError, "File with id 'some_id' not found in Google Drive")
     end
 
-    it "raise an error if file upload fails" do
-      allow_any_instance_of(GoogleDrive::Collection).to receive(:create_subcollection).raise(Exception.new('something went wrong'))
+    it "raise an error if creating folder fails" do
+      allow_any_instance_of(GoogleDrive::Collection).to receive(:create_subcollection).and_raise(Exception.new('something went wrong'))
       folder_id = ENV['TEST_UPLOAD_FOLDER_ID']
 
       expect do
         Fastlane::FastFile.new.parse("lane :test do
       create_google_drive_folder(drive_keyfile: '#{@key_path}', folder_id: '#{folder_id}', folder_title: 'new_folder')
     end").runner.execute(:test)
-      end.to raise_error(Exception, 'something went wrong')
+      end.to raise_error(FastlaneCore::Interface::FastlaneError, "Create 'new_folder' failed")
     end
   end
 
@@ -76,7 +76,7 @@ describe Fastlane::Actions::CreateGoogleDriveFolderAction do
       create_google_drive_folder(drive_keyfile: '#{@key_path}', folder_id: '#{folder_id}', folder_title: 'new_folder')
     end").runner.execute(:test)
 
-      expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_CREATED_FOLDER_ID]).to eq('abcdfeg')
+      expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_CREATED_FOLDER_ID]).to eq('abcdefg')
       expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_CREATED_FOLDER_URL]).to eq('https://example.com/abcdefg')
     end
   end
