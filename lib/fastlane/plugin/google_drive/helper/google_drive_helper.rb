@@ -1,7 +1,5 @@
 require 'fastlane_core/ui/ui'
 require 'google_drive'
-
-# rubocop:disable Lint/RescueException
 module Fastlane
   UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
 
@@ -36,6 +34,13 @@ module Fastlane
           UI.error(e.message)
           UI.user_error!("Upload '#{file_name}' failed")
         end
+      end
+
+      def self.create_subcollection(root_folder:, title:)
+        root_folder.create_subcollection(title)
+      rescue Exception => e
+        UI.error(e.message)
+        UI.user_error!("Create '#{title}' failed")
       end
     end
   end
