@@ -112,6 +112,8 @@ Lint/UnusedMethodArgument:
 Lint/ParenthesesAsGroupedExpression:
   Exclude:
   - "**/spec/**/*"
+Lint/RescueException:
+  Enabled: false
 Style/PredicateName:
   Enabled: false
 Style/PerlBackrefs:
@@ -120,7 +122,7 @@ Layout/SpaceAroundOperators:
   Exclude:
   - "**/spec/actions_specs/xcodebuild_spec.rb"
 AllCops:
-  TargetRubyVersion: 2.0
+  TargetRubyVersion: 2.3
   Include:
   - "**/fastlane/Fastfile"
   Exclude:
