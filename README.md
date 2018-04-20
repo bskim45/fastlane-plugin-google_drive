@@ -14,7 +14,26 @@ fastlane add_plugin google_drive
 
 ## About google_drive
 
+```ruby
+upload_google_drive(
+  drive_keyfile: 'drive_key.json',
+  service_account: true,
+  folder_id: 'folder_id',
+  upload_files: ['file_to_upload', 'another_file_to_upload']
+)
+```
+
 Upload files to Google Drive folder.
+
+```ruby
+create_google_drive_folder(
+  drive_keyfile: 'drive_key.json',
+  folder_id: '#{folder_id}',
+  folder_title: 'new_folder'
+)
+```
+
+Create new Google Drive folder
 
 Download feature is not implemented yet. PR is always welcome.
 

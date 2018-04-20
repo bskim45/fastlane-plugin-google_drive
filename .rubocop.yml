@@ -1,4 +1,11 @@
----
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+  - "**/fastlane/Fastfile"
+  Exclude:
+  - "**/lib/assets/custom_action_template.rb"
+  - "./vendor/**/*"
+  
 Style/MultipleComparison:
   Enabled: false
 Style/PercentLiteralDelimiters:
@@ -121,13 +128,6 @@ Style/PerlBackrefs:
 Layout/SpaceAroundOperators:
   Exclude:
   - "**/spec/actions_specs/xcodebuild_spec.rb"
-AllCops:
-  TargetRubyVersion: 2.3
-  Include:
-  - "**/fastlane/Fastfile"
-  Exclude:
-  - "**/lib/assets/custom_action_template.rb"
-  - "./vendor/**/*"
 Style/FileName:
   Exclude:
   - "**/Dangerfile"

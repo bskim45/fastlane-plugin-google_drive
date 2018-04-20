@@ -7,7 +7,7 @@ module Fastlane
       GDRIVE_UPLOADED_FILE_NAMES = :GDRIVE_UPLOADED_FILE_NAMES
       GDRIVE_UPLOADED_FILE_URLS = :GDRIVE_UPLOADED_FILE_URLS
     end
-    class GoogleDriveUploadAction < Action
+    class UploadGoogleDriveAction < Action
       def self.run(params)
         UI.message("Using config file: #{params[:drive_keyfile]}")
 
@@ -104,15 +104,6 @@ module Fastlane
 
       def self.is_supported?(platform)
         true
-      end
-
-      def self.category
-        :deprecated
-      end
-
-      def self.deprecated_notes
-        "`google_drive_upload(...)` is renamed to `upload_google_drive(...)`\n" \
-        "It will be removed in next release."
       end
     end
   end
