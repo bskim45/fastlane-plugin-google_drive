@@ -1,6 +1,6 @@
 module Fastlane
   module Actions
-    class GoogleDriveUploadAction < UploadGoogleDriveAction
+    class UploadToGoogleDriveAction < UploadGoogleDriveAction
       #####################################################
       # @!group Documentation
       #####################################################
