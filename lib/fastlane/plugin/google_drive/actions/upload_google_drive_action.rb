@@ -1,7 +1,7 @@
 module Fastlane
   module Actions
     require 'fastlane/plugin/google_drive/actions/upload_to_google_drive_action'
-    class GoogleDriveUploadAction < UploadToGoogleDriveAction
+    class UploadGoogleDriveAction < UploadToGoogleDriveAction
       #####################################################
       # @!group Documentation
       #####################################################
