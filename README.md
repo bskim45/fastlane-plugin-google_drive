@@ -15,7 +15,7 @@ fastlane add_plugin google_drive
 ## About google_drive
 
 ```ruby
-upload_google_drive(
+upload_to_google_drive(
   drive_keyfile: 'drive_key.json',
   service_account: true,
   folder_id: 'folder_id',
@@ -24,6 +24,7 @@ upload_google_drive(
 ```
 
 Upload files to Google Drive folder.
+You can also use `google_drive_upload` or `upload_google_drive` as aliases.
 
 ```ruby
 create_google_drive_folder(
