@@ -15,6 +15,10 @@ before_script:
 script:
 - bundle exec rake
 
+# send the coverage data to Code Climate
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+
 # deploy gem
 deploy:
   provider: rubygems
@@ -26,10 +30,6 @@ deploy:
     tags: true
     repo: bskim45/fastlane-plugin-google_drive
   skip_cleanup: true
-
-# send the coverage data to Code Climate
-after_script:
-- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 
 notifications:
   email:
