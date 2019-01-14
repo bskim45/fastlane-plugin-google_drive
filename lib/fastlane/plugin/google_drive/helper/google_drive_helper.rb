@@ -28,7 +28,7 @@ module Fastlane
         raise "Not Google Drive file" unless file.kind_of?(::GoogleDrive::File)
 
         begin
-          file = file.upload_from_file(file_name, title)
+          file = file.upload_from_file(file_name, title, convert: false)
           file
         rescue Exception => e
           UI.error(e.message)
