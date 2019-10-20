@@ -2,7 +2,7 @@
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-google_drive)
 [![Gem Version Badge](https://badge.fury.io/rb/fastlane-plugin-google_drive.svg)](https://badge.fury.io/rb/fastlane-plugin-google_drive)
-[![Build Status](https://travis-ci.org/bskim45/fastlane-plugin-google_drive.svg?branch=master)](https://travis-ci.org/bskim45/fastlane-plugin-google_drive)
+[![Build Status](https://travis-ci.com/bskim45/fastlane-plugin-google_drive.svg?branch=master)](https://travis-ci.com/bskim45/fastlane-plugin-google_drive)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/681ab1f5c19ca029dff4/test_coverage)](https://codeclimate.com/github/bskim45/fastlane-plugin-google_drive/test_coverage)
 [![security](https://hakiri.io/github/bskim45/fastlane-plugin-google_drive/master.svg)](https://hakiri.io/github/bskim45/fastlane-plugin-google_drive/master)
 
