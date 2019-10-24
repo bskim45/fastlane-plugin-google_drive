@@ -18,6 +18,9 @@ fastlane add_plugin google_drive
 
 > Please refer to [this guide](https://github.com/gimite/google-drive-ruby/blob/master/doc/authorization.md) to create an Google Drive credential.
 
+Upload files to Google Drive folder.
+> Aliases for this action - `google_drive_upload` and `upload_google_drive` will be deprecated in next version.
+
 ```ruby
 upload_to_google_drive(
   drive_keyfile: 'drive_key.json',
@@ -27,8 +30,7 @@ upload_to_google_drive(
 )
 ```
 
-Upload files to Google Drive folder.
-You can also use `google_drive_upload` or `upload_google_drive` as aliases.
+Create new Google Drive folder
 
 ```ruby
 create_google_drive_folder(
@@ -37,8 +39,6 @@ create_google_drive_folder(
   folder_title: 'new_folder'
 )
 ```
-
-Create new Google Drive folder
 
 Download feature is not implemented yet. PR is always welcome.
 
@@ -80,4 +80,4 @@ _fastlane_ is the easiest way to automate beta deployments and releases for your
 
 The MIT License (MIT)
 
-Copyright (c) 2018 Bumsoo Kim (<https://bsk.im>)
+Copyright (c) 2019 Bumsoo Kim (<https://bsk.im>)
