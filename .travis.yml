@@ -2,7 +2,6 @@ language: ruby
 cache: bundler
 rvm:
 - 2.6
-- 2.5
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_411b6a7e5ad0_key -iv $encrypted_411b6a7e5ad0_iv -in spec/fixtures/drive_key.json.enc -out drive_key.json -d
@@ -23,7 +22,6 @@ after_script:
 # deploy gem
 deploy:
   provider: rubygems
-  rvm: 2.6
   api_key:
     secure: Bz3m+YToIhPrtbkPrRa12ePf+hWtHdflzqRnaq+aYrpZgiCQ6TQPbCJwX7sreTwBvIcFqxMy8kW8MWmM0AxbrYAgAZY9aWhsplLnQe2ojHaRUL+EdbdxR/rsAA6DEEMjUpv91Ts3ef/Z4q/c3aNuCkp9A+G9y/gZu4P6a0rBxLqi7oL53cFQNJKd7qH7+KtIomxTpc+IZ8lEnYDkSsD65sTL/zWpCqzTt9qKr6zgT1m5P6pDp3jrhWA4CByWdjWMtIdIy+5WaObv0NkTJb1ocPgEdGEJCEqtzs92LWR8WTXIwlxWi3HBH0ZkS+SgQzrp1bXXtyCTddOgJgpSpcwUNG/qdCE8kdmqlvENwNe7BIWUbax16dksKg0aLXPiLEji8F/pOI1d59q2AKM+aevV0hqUOJIgKpGxqRjFLZpZktFNZY/hYw7XAcSRwNrF4A6EcSBkaizwsmq91WvDjKr3TL04wgkV4M2UYLesf8qHmuS75l1ooiT1Fz2x4NOff/XKeY8CNd5yFBk0ufc4P0vmvs2hFDSG/alFBKjp893WMOM1t7Dd4+7cre4frw+aBkSJF6oZbD40Tdd3fGENYICyaOB4Rz4VDFheZkRVEG0ff5FDXP1PQGFs2dDc3UbXlBEKqmhvc7hNNtEuPn3nnyghxNam5A3DUMYsX/10NwHLyxE=
   gem: fastlane-plugin-google_drive
