@@ -24,12 +24,12 @@ describe Fastlane::Actions::CreateGoogleDriveFolderAction do
       end.to raise_error(FastlaneCore::Interface::FastlaneError, "Couldn't find config keyfile at path 'test.json'")
     end
 
-    it 'raise an error if no folder id was given' do
+    it 'raise an error if no folder_id was given' do
       expect do
         Fastlane::FastFile.new.parse("lane :test do
         create_google_drive_folder(drive_keyfile: '#{@key_path}')
       end").runner.execute(:test)
-      end.to raise_error(FastlaneCore::Interface::FastlaneError, "No target folder id given, pass using `folder_id: 'some_id'`")
+      end.to raise_error(FastlaneCore::Interface::FastlaneError, "No target folder_id given, pass using `folder_id: 'some_id'`")
     end
 
     it 'raise an error if no folder_title was given' do

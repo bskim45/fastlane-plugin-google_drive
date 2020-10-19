@@ -42,6 +42,18 @@ module Fastlane
         UI.error(e.message)
         UI.user_error!("Create '#{title}' failed")
       end
+
+      def self.update_file(file: nil, file_name: nil)
+        raise "Not a Google Drive file" unless file.kind_of?(::GoogleDrive::File)
+
+        begin
+          file = file.update_from_file(file_name)
+          file
+        rescue Exception => e
+          UI.error(e.message)
+          UI.user_error!("Upload '#{file_name}' failed")
+        end
+      end
     end
   end
 end
