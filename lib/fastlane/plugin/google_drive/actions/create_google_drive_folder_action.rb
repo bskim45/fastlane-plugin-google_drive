@@ -67,7 +67,7 @@ module Fastlane
                                        optional: false,
                                        type: String,
                                        verify_block: proc do |value|
-                                         UI.user_error!("No target folder id given, pass using `folder_id: 'some_id'`") unless value and !value.empty?
+                                         UI.user_error!("No target folder_id given, pass using `folder_id: 'some_id'`") unless value and !value.empty?
                                        end),
           FastlaneCore::ConfigItem.new(key: :folder_title,
                                        env_name: "GDRIVE_FOLDER_NAME",
