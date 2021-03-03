@@ -36,6 +36,19 @@ module Fastlane
         end
       end
 
+      def self.create_public_url(file)
+        raise "Not Google Drive file" unless file.kind_of?(::GoogleDrive::File)
+
+        begin
+          file.acl.push(type: "anyone", role: "reader")
+          file.reload_metadata
+          file.human_url
+        rescue Exception => e
+          UI.error(e.message)
+          UI.user_error!("Create public link for '#{file.resource_id}' failed")
+        end
+      end
+
       def self.create_subcollection(root_folder:, title:)
         root_folder.create_subcollection(title)
       rescue Exception => e

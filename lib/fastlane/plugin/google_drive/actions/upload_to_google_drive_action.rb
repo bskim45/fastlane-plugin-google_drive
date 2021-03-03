@@ -22,6 +22,7 @@ module Fastlane
 
         uploaded_files = []
         assets = params[:upload_files]
+        generate_public_links = params[:public_links]
 
         UI.abort_with_message!("No files to upload") if assets.nil? or assets.empty?
 
@@ -34,7 +35,12 @@ module Fastlane
         end
 
         Actions.lane_context[SharedValues::GDRIVE_UPLOADED_FILE_NAMES] = uploaded_files.map(&:title)
-        Actions.lane_context[SharedValues::GDRIVE_UPLOADED_FILE_URLS] = uploaded_files.map(&:human_url)
+        Actions.lane_context[SharedValues::GDRIVE_UPLOADED_FILE_URLS] =
+          if generate_public_links
+            uploaded_files.map(&Helper::GoogleDriveHelper.method(:create_public_url))
+          else
+            uploaded_files.map(&:human_url)
+          end
       end
 
       def self.description
@@ -83,7 +89,13 @@ module Fastlane
                                         value.each do |path|
                                           UI.user_error!("Couldn't find upload file at path '#{path}'") unless File.exist?(path)
                                         end
-                                      end)
+                                      end),
+          FastlaneCore::ConfigItem.new(key: :public_links,
+                                       env_name: 'GDRIVE_PUBLIC_LINKS',
+                                       description: 'Uploaded file links should be public',
+                                       optional: true,
+                                       default_value: false,
+                                       is_string: false)
         ]
       end
 
