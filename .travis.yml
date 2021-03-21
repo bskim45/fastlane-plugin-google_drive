@@ -29,6 +29,7 @@ deploy:
   on:
     branch: master
     tags: true
+    rvm: 2.7
     repo: bskim45/fastlane-plugin-google_drive
   skip_cleanup: true
 
