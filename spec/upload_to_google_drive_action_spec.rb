@@ -1,4 +1,5 @@
 require 'dotenv/load'
+require 'net/http'
 
 describe Fastlane::Actions::UploadToGoogleDriveAction do
   before(:context) do
@@ -64,5 +65,22 @@ describe Fastlane::Actions::UploadToGoogleDriveAction do
     end").runner.execute(:test)
 
     expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_UPLOADED_FILE_NAMES]).to eq(['test_file.txt'])
+    expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_UPLOADED_FILE_URLS].length).to eq(1)
+  end
+
+  it "raise an error if file upload fails or public link generation fails" do
+    folder_id = ENV['TEST_UPLOAD_FOLDER_ID']
+
+    Fastlane::FastFile.new.parse("lane :test do
+      upload_to_google_drive(drive_keyfile: '#{@key_path}', folder_id: '#{folder_id}', upload_files: ['#{@upload_file}'], public_links: true)
+    end").runner.execute(:test)
+
+    expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_UPLOADED_FILE_NAMES]).to eq(['test_file.txt'])
+    expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_UPLOADED_FILE_URLS].length).to eq(1)
+
+    Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_UPLOADED_FILE_URLS].each do |url|
+      res = Net::HTTP.get_response(URI.parse(url))
+      expect(res.code).to eq("200")
+    end
   end
 end
