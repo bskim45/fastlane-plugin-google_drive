@@ -18,8 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency('google_drive', '~> 3', '>=3.0.5')
-  spec.add_dependency('google-api-client', '>= 0.37.0')
+  spec.add_dependency('google_drive', '~> 3', '>=3.0.7')
+  spec.add_dependency('google-apis-drive_v3', '>= 0.5.0', '< 1.0.0')
+  spec.add_dependency('google-apis-sheets_v4', '>= 0.4.0', '< 1.0.0')
 
   spec.add_development_dependency('pry')
   spec.add_development_dependency('bundler')
