@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.7.0 (2021-07-12)
+
+### Changelog
+
+- upgraded `google_drive` to `3.0.7` use service-specific Google API client (#18, #19).  
+  Now we use `google-apis-drive_v3` and `google-apis-sheets_v4` instead of deprecated monolithic `google-api-client` (see https://googleapis.dev/ruby/google-api-client/latest/index.html).
+
 ## v0.6.0 (2021-03-21)
 
 ### Breaking Changes
