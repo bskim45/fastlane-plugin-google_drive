@@ -1,11 +1,16 @@
+require:
+  - rubocop-performance
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7
   Include:
   - "**/fastlane/Fastfile"
   Exclude:
   - "**/lib/assets/custom_action_template.rb"
   - "./vendor/**/*"
-  
+  SuggestExtensions: false
+  NewCops: enable
+
 Style/MultipleComparison:
   Enabled: false
 Style/PercentLiteralDelimiters:
@@ -26,19 +31,19 @@ Metrics/BlockLength:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false
-Style/MethodMissing:
+Lint/MissingSuper:
   Enabled: false
-MultilineBlockChain:
+Style/MissingRespondToMissing:
+  Enabled: false
+Style/MultilineBlockChain:
   Enabled: false
 Style/NumericLiteralPrefix:
   Enabled: false
 Style/TernaryParentheses:
   Enabled: false
 Style/EmptyMethod:
-  Enabled: false
-Style/BracesAroundHashParameters:
   Enabled: false
 Lint/UselessAssignment:
   Exclude:
@@ -55,9 +60,9 @@ Lint/UselessAssignment:
 #   - "**/Rakefile"
 #   - fastlane/**/*
 #   - supply/**/*
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: false
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 Layout/DotPosition:
   Enabled: false
@@ -65,12 +70,12 @@ Style/DoubleNegation:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 Style/MixinGrouping:
   Exclude:
   - "**/spec/**/*"
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 Lint/UnusedBlockArgument:
   Enabled: false
@@ -100,7 +105,7 @@ Style/AndOr:
   Enabled: false
 Metrics/ClassLength:
   Max: 320
-Metrics/LineLength:
+Layout/LineLength:
   Max: 370
 Metrics/ParameterLists:
   Max: 17
@@ -121,14 +126,14 @@ Lint/ParenthesesAsGroupedExpression:
   - "**/spec/**/*"
 Lint/RescueException:
   Enabled: false
-Style/PredicateName:
+Naming/PredicateName:
   Enabled: false
 Style/PerlBackrefs:
   Enabled: false
 Layout/SpaceAroundOperators:
   Exclude:
   - "**/spec/actions_specs/xcodebuild_spec.rb"
-Style/FileName:
+Naming/FileName:
   Exclude:
   - "**/Dangerfile"
   - "**/Brewfile"
