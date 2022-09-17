@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.8.0 (2022-09-18)
+
+### Changelog
+
+- switched to [the forked-version of `google_drive`](https://github.com/bskim45/google-drive-ruby)
+  to avoid conflict with `google-auth` gem,
+  since [the original version of `google_drive`](https://github.com/gimite/google-drive-ruby)
+  seems no longer maintained.
+  We'll switch back to the original when it's actively maintained again.
+
 ## v0.7.0 (2021-07-12)
 
 ### Changelog
