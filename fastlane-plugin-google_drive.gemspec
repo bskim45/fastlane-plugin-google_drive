@@ -14,11 +14,14 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/bskim45/fastlane-plugin-google_drive"
   spec.license       = "MIT"
 
+  spec.required_ruby_version = '>= 2.6'
+
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency('google_drive', '~> 3', '>=3.0.7')
+
+  spec.add_dependency('google_drive2', '~> 3', '>=3.0.9')
   spec.add_dependency('google-apis-drive_v3', '>= 0.5.0', '< 1.0.0')
   spec.add_dependency('google-apis-sheets_v4', '>= 0.4.0', '< 1.0.0')
 
