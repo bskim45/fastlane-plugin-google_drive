@@ -60,6 +60,27 @@ describe Fastlane::Actions::CreateGoogleDriveFolderAction do
     end
   end
 
+  context 'when check_existing and folder exists' do
+    let(:existing_folder) { double('GoogleDrive::Collection') }
+    before do
+      allow_any_instance_of(GoogleDrive::Collection).to receive(:subcollection_by_title).and_return(existing_folder)
+      allow(existing_folder).to receive(:resource_id).and_return('folder:abcdefg')
+      allow(existing_folder).to receive(:human_url).and_return('https://example.com/abcdefg')
+    end
+
+    it 'set lane_context with existing folder' do
+      expect_any_instance_of(GoogleDrive::Collection).to receive(:subcollection_by_title).with('new_folder')
+
+      folder_id = ENV['TEST_UPLOAD_FOLDER_ID']
+      Fastlane::FastFile.new.parse("lane :test do
+      create_google_drive_folder(drive_keyfile: '#{@key_path}', folder_id: '#{folder_id}', folder_title: 'new_folder', check_existing: true)
+    end").runner.execute(:test)
+
+      expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_CREATED_FOLDER_ID]).to eq('abcdefg')
+      expect(Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::GDRIVE_CREATED_FOLDER_URL]).to eq('https://example.com/abcdefg')
+    end
+  end
+
   context 'when creating is succeeded' do
     let(:new_folder) { double('GoogleDrive::Collection') }
     before do

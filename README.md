@@ -36,9 +36,11 @@ Create new Google Drive folder:
 create_google_drive_folder(
   drive_keyfile: 'drive_key.json',
   folder_id: '#{folder_id}',
-  folder_title: 'new_folder'
+  folder_title: 'new_folder',
+  check_existing: false  # optional, default is false
 )
 ```
+If `check_existing` is `true`, checks and returns existing folder.
 
 Update the content of existing Google Drive file:
 

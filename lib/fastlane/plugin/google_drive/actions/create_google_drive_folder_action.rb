@@ -21,9 +21,10 @@ module Fastlane
         )
 
         title = params[:folder_title]
+        check_existing = params[:check_existing]
         UI.message('------------------')
         UI.important("Creating #{title}")
-        new_folder = Helper::GoogleDriveHelper.create_subcollection(root_folder: folder, title: title)
+        new_folder = Helper::GoogleDriveHelper.create_subcollection(root_folder: folder, title: title, check_existing: check_existing)
         UI.success('Success')
         UI.message('------------------')
 
