@@ -49,8 +49,13 @@ module Fastlane
         end
       end
 
-      def self.create_subcollection(root_folder:, title:)
-        root_folder.create_subcollection(title)
+      def self.create_subcollection(root_folder:, title:, check_existing: false)
+        existing_folder = check_existing ? root_folder.subcollection_by_title(title) : nil
+        if existing_folder.nil?
+          root_folder.create_subcollection(title)
+        else
+          existing_folder
+        end
       rescue Exception => e
         UI.error(e.message)
         UI.user_error!("Create '#{title}' failed")
