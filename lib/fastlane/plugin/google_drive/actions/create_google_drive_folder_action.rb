@@ -77,7 +77,13 @@ module Fastlane
                                        type: String,
                                        verify_block: proc do |value|
                                          UI.user_error!("No folder title given") if value.nil? || value.empty?
-                                       end)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :check_existing,
+                                       env_name: "GDRIVE_FOLDER_CHECK_EXISTING",
+                                       description: "Check for existing folder before creation",
+                                       optional: true,
+                                       is_string: false,
+                                       default_value: false)
         ]
       end
 
