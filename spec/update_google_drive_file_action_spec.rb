@@ -4,16 +4,15 @@ require 'time'
 describe Fastlane::Actions::UpdateGoogleDriveFileAction do
   before(:context) do
     @key_path = File.join(File.dirname(File.dirname(__FILE__)), 'drive_key.json')
+    ENV['GDRIVE_SERVICE_ACCOUNT'] = ENV['TEST_SERVICE_ACCOUNT']
+
     raise("specify update test file id") unless ENV['TEST_UPDATE_FILE_ID'] and !ENV['TEST_UPDATE_FILE_ID'].empty?
     raise("drive key json file does not exists") unless File.exist?(@key_path)
   end
 
-  before(:each) do
-    ENV['GDRIVE_SERVICE_ACCOUNT'] = ENV['TEST_SERVICE_ACCOUNT']
-  end
-
-  after(:each) do
+  after(:context) do
     ENV.delete('GDRIVE_SERVICE_ACCOUNT')
+    Fastlane::Actions.clear_lane_context
   end
 
   it 'raise an error if keyfile does not exists' do

@@ -9,7 +9,7 @@ module Fastlane
     end
     class UpdateGoogleDriveFileAction < Action
       def self.run(params)
-        UI.message("Using config file: #{params[:drive_keyfile]}")
+        UI.message("Using credential file: #{params[:drive_keyfile]}")
 
         session = Helper::GoogleDriveHelper.setup(
           keyfile: params[:drive_keyfile],

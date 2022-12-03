@@ -3,16 +3,15 @@ require 'dotenv/load'
 describe Fastlane::Actions::CreateGoogleDriveFolderAction do
   before(:context) do
     @key_path = File.join(File.dirname(File.dirname(__FILE__)), 'drive_key.json')
+    ENV['GDRIVE_SERVICE_ACCOUNT'] = ENV['TEST_SERVICE_ACCOUNT']
+
     raise("specify upload test folder id") unless ENV['TEST_UPLOAD_FOLDER_ID'] and !ENV['TEST_UPLOAD_FOLDER_ID'].empty?
     raise("drive key json file does not exists") unless File.exist?(@key_path)
   end
 
-  before(:each) do
-    ENV['GDRIVE_SERVICE_ACCOUNT'] = ENV['TEST_SERVICE_ACCOUNT']
-  end
-
-  after(:each) do
+  after(:context) do
     ENV.delete('GDRIVE_SERVICE_ACCOUNT')
+    Fastlane::Actions.clear_lane_context
   end
 
   context 'when creating is failed' do

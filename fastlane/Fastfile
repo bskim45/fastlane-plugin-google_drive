@@ -1,4 +1,4 @@
-lane :test do |options|
+lane :upload_file do |options|
   drive_keyfile = options[:drive_keyfile] || UI.input('Please enter Google Drive keyfile: ')
   service_account = options[:service_account] || UI.confirm('Is service account?: ')
   folder_id = options[:folder_id] || UI.input('Please enter Google Drive target id: ')
@@ -10,4 +10,68 @@ lane :test do |options|
     folder_id: folder_id,
     upload_files: [file_to_upload]
   )
+
+  uploaded_file_names = lane_context[SharedValues::GDRIVE_UPLOADED_FILE_NAMES]
+  UI.message("Uploaded files: #{uploaded_file_names}")
+end
+
+lane :create_folder do |options|
+  drive_keyfile = options[:drive_keyfile] || UI.input('Please enter the path to the keyfile: ')
+  service_account = options[:service_account] || UI.confirm('Is service account?: ')
+  parent_folder_id = options[:parent_folder_id] || UI.input('Please enter the parent folder id: ')
+  folder_title = options[:folder_title] || UI.input('Please enter the folder title to create: ')
+
+  find_google_drive_file_by_title(
+    drive_keyfile: drive_keyfile,
+    service_account: service_account,
+    parent_folder_id: parent_folder_id,
+    file_title: folder_title
+  )
+
+  if lane_context[SharedValues::GDRIVE_FILE_ID]
+    UI.message("The folder already exists with given id.")
+  else
+    create_google_drive_folder(
+      drive_keyfile: drive_keyfile,
+      service_account: service_account,
+      parent_folder_id: parent_folder_id,
+      folder_title: folder_title
+    )
+  end
+
+  UI.message("Created folder id: #{lane_context[SharedValues::GDRIVE_FILE_ID]}")
+end
+
+lane :upload_or_replace_file do |options|
+  drive_keyfile = options[:drive_keyfile] || UI.input('Please enter the path to the keyfile: ')
+  service_account = options[:service_account] || UI.confirm('Is service account?: ')
+  parent_folder_id = options[:parent_folder_id] || UI.input('Please enter the parent folder id: ')
+  file_to_upload = options[:upload_file] || UI.input('Please enter the path to the file: ')
+
+  find_google_drive_file_by_title(
+    drive_keyfile: drive_keyfile,
+    service_account: service_account,
+    parent_folder_id: parent_folder_id,
+    file_title: File.basename(file_to_upload)
+  )
+
+  existing_file_id = lane_context[SharedValues::GDRIVE_FILE_ID]
+  if existing_file_id
+    UI.message("Replace existing file.")
+    update_google_drive_file(
+      drive_keyfile: drive_keyfile,
+      service_account: service_account,
+      file_id: existing_file_id,
+      upload_file: file_to_upload
+    )
+  else
+    upload_to_google_drive(
+      drive_keyfile: drive_keyfile,
+      service_account: service_account,
+      folder_id: parent_folder_id,
+      upload_files: [file_to_upload]
+    )
+  end
+
+  UI.message("Uploaded file id: #{lane_context[SharedValues::GDRIVE_FILE_ID]}")
 end

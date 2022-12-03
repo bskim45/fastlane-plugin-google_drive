@@ -50,6 +50,23 @@ update_google_drive_file(
 )
 ```
 
+Find the existing file or folder:
+
+```ruby
+# find the file or folder by ID
+find_google_drive_file_by_id(
+  drive_keyfile: 'drive_key.json',
+  file_id: 'file_or_folder_id'
+)
+
+# find the file or folder by title
+find_google_drive_file_by_title(
+  drive_keyfile: 'drive_key.json',
+  parent_folder_id: 'parent_folder_id',
+  file_title: 'file_or_folder_title'
+)
+```
+
 Download feature is not implemented yet. PR is always welcome.
 
 ## Example

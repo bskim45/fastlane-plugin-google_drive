@@ -20,4 +20,6 @@ test-results
 
 ## user-specific files
 .env
+.envrc
+.ruby-version
 drive_key.json
