@@ -1,10 +1,9 @@
 # google_drive `fastlane` plugin
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-google_drive)
-[![Gem Version Badge](https://badge.fury.io/rb/fastlane-plugin-google_drive.svg)](https://badge.fury.io/rb/fastlane-plugin-google_drive)
-[![Build Status](https://travis-ci.com/bskim45/fastlane-plugin-google_drive.svg?branch=master)](https://travis-ci.com/bskim45/fastlane-plugin-google_drive)
+[![Gem Version](https://badge.fury.io/rb/fastlane-plugin-google_drive.svg)](https://badge.fury.io/rb/fastlane-plugin-google_drive)
+[![Build Status](https://app.travis-ci.com/bskim45/fastlane-plugin-google_drive.svg?branch=main)](https://app.travis-ci.com/bskim45/fastlane-plugin-google_drive)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/681ab1f5c19ca029dff4/test_coverage)](https://codeclimate.com/github/bskim45/fastlane-plugin-google_drive/test_coverage)
-[![security](https://hakiri.io/github/bskim45/fastlane-plugin-google_drive/master.svg)](https://hakiri.io/github/bskim45/fastlane-plugin-google_drive/master)
 
 ## Getting Started
 
@@ -107,4 +106,4 @@ _fastlane_ is the easiest way to automate beta deployments and releases for your
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Bumsoo Kim (<https://bsk.im>)
+Copyright (c) 2022 Bumsoo Kim (<https://bsk.im>)
