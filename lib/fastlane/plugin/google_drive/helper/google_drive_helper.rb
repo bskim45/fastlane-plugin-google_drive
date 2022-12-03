@@ -24,6 +24,14 @@ module Fastlane
         UI.user_error!("File with id '#{fid}' not found in Google Drive")
       end
 
+      def self.file_by_title(root_folder:, title:)
+        file = root_folder.file_by_title(title)
+        file
+      rescue Exception => e
+        UI.error(e.message)
+        UI.user_error!("File with title '#{title}' not found in Google Drive")
+      end
+
       def self.upload_file(file: nil, file_name: nil, title: nil)
         raise "Not Google Drive file" unless file.kind_of?(::GoogleDrive::File)
 
