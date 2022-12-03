@@ -41,3 +41,37 @@ lane :create_folder do |options|
 
   UI.message("Created folder id: #{lane_context[SharedValues::GDRIVE_FILE_ID]}")
 end
+
+lane :upload_or_replace_file do |options|
+  drive_keyfile = options[:drive_keyfile] || UI.input('Please enter the path to the keyfile: ')
+  service_account = options[:service_account] || UI.confirm('Is service account?: ')
+  parent_folder_id = options[:parent_folder_id] || UI.input('Please enter the parent folder id: ')
+  file_to_upload = options[:upload_file] || UI.input('Please enter the path to the file: ')
+
+  find_google_drive_file_by_title(
+    drive_keyfile: drive_keyfile,
+    service_account: service_account,
+    parent_folder_id: parent_folder_id,
+    file_title: File.basename(file_to_upload)
+  )
+
+  existing_file_id = lane_context[SharedValues::GDRIVE_FILE_ID]
+  if existing_file_id
+    UI.message("Replace existing file.")
+    update_google_drive_file(
+      drive_keyfile: drive_keyfile,
+      service_account: service_account,
+      file_id: existing_file_id,
+      upload_file: file_to_upload
+    )
+  else
+    upload_to_google_drive(
+      drive_keyfile: drive_keyfile,
+      service_account: service_account,
+      folder_id: parent_folder_id,
+      upload_files: [file_to_upload]
+    )
+  end
+
+  UI.message("Uploaded file id: #{lane_context[SharedValues::GDRIVE_FILE_ID]}")
+end
