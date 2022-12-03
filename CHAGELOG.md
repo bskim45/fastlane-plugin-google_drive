@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.9.0 (2022-12-03)
+
+### Changelog
+
+- Introduce new actions: `find_google_drive_file_by_id` and `find_google_drive_file_by_title`. 
+  These actions find the existing file or folder with file ID or title.
+  For more information, please refer to [README](README.md) or [Fastfile](fastlane/Fastfile) for working examples.
+
 ## v0.8.0 (2022-09-18)
 
 ### Changelog
