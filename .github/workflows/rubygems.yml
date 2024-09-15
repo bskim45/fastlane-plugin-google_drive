@@ -44,6 +44,8 @@ jobs:
           TEST_CHECK_EXISTENCE_PARENT_FOLDER_ID: "${{ secrets.TEST_CHECK_EXISTENCE_PARENT_FOLDER_ID }}"
           TEST_CHECK_EXISTENCE_FILE_TITLE: "${{ vars.TEST_CHECK_EXISTENCE_FILE_TITLE }}"
           TEST_CHECK_EXISTENCE_FOLDER_TITLE: "${{ vars.TEST_CHECK_EXISTENCE_FOLDER_TITLE }}"
+          # https://github.com/simplecov-ruby/simplecov#json-formatter
+          CC_TEST_REPORTER_ID: "${{ secrets.CC_TEST_REPORTER_ID }}"
 
       - uses: paambaati/codeclimate-action@v9.0.0
         env:
