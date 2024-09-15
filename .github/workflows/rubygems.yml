@@ -1,0 +1,60 @@
+name: Ruby Gem
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['2.6', '2.7', '3.0', '3.1']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+
+      - name: Save service account key to the file
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            fs.writeFileSync('drive_key.json', process.env.KEY_JSON);
+        env:
+          KEY_JSON: ${{ secrets.TEST_SERVICE_ACCOUNT_KEY }}
+
+      # https://github.com/fastlane/fastlane/issues/21944#issuecomment-2045244250
+      # Remove when https://github.com/fastlane/fastlane/pull/21950 gets released
+      - name: Workaround for fastlane issue
+        if: matrix.ruby-version == '2.6' || matrix.ruby-version == '2.7'
+        run: |
+          echo "RUBYOPT=-rostruct" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: bundle exec rake
+        env:
+          TEST_SERVICE_ACCOUNT: $${{ vars.TEST_SERVICE_ACCOUNT }}
+          TEST_UPLOAD_FOLDER_ID: "${{ secrets.TEST_UPLOAD_FOLDER_ID }}"
+          TEST_UPDATE_FILE_ID: "${{ secrets.TEST_UPDATE_FILE_ID }}"
+          TEST_CHECK_EXISTENCE_FILE_ID: "${{ secrets.TEST_CHECK_EXISTENCE_FILE_ID }}"
+          TEST_CHECK_EXISTENCE_FOLDER_ID: "${{ secrets.TEST_CHECK_EXISTENCE_FOLDER_ID }}"
+          TEST_CHECK_EXISTENCE_PARENT_FOLDER_ID: "${{ secrets.TEST_CHECK_EXISTENCE_PARENT_FOLDER_ID }}"
+          TEST_CHECK_EXISTENCE_FILE_TITLE: "${{ vars.TEST_CHECK_EXISTENCE_FILE_TITLE }}"
+          TEST_CHECK_EXISTENCE_FOLDER_TITLE: "${{ vars.TEST_CHECK_EXISTENCE_FOLDER_TITLE }}"
+          # https://github.com/simplecov-ruby/simplecov#json-formatter
+          CC_TEST_REPORTER_ID: "${{ secrets.CC_TEST_REPORTER_ID }}"
+
+      - uses: paambaati/codeclimate-action@v9.0.0
+        if: matrix.ruby-version == '3.1'
+        env:
+          CC_TEST_REPORTER_ID: "${{ secrets.CC_TEST_REPORTER_ID }}"
