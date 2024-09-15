@@ -24,8 +24,21 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
+      - name: Save service account key to the file
+        run: echo "${{ secrets.TEST_SERVICE_ACCOUNT_KEY }}" > drive_key.json
+
       - name: Run tests
         run: bundle exec rake
+        env:
+          TEST_SERVICE_ACCOUNT: $${{ vars.TEST_SERVICE_ACCOUNT }}
+          TEST_UPLOAD_FOLDER_ID: "${{ secrets.TEST_UPLOAD_FOLDER_ID }}"
+          TEST_UPDATE_FILE_ID: "${{ secrets.TEST_UPDATE_FILE_ID }}"
+          TEST_CHECK_EXISTENCE_FILE_ID: "${{ secrets.TEST_CHECK_EXISTENCE_FILE_ID }}"
+          TEST_CHECK_EXISTENCE_FOLDER_ID: "${{ secrets.TEST_CHECK_EXISTENCE_FOLDER_ID }}"
+          TEST_CHECK_EXISTENCE_PARENT_FOLDER_ID: "${{ secrets.TEST_CHECK_EXISTENCE_PARENT_FOLDER_ID }}"
+          TEST_CHECK_EXISTENCE_FILE_TITLE: "${{ vars.TEST_CHECK_EXISTENCE_FILE_TITLE }}"
+          TEST_CHECK_EXISTENCE_FOLDER_TITLE: "${{ vars.TEST_CHECK_EXISTENCE_FOLDER_TITLE }}"
+
 
       - uses: paambaati/codeclimate-action@v9.0.0
         env:
