@@ -28,7 +28,7 @@ describe Fastlane::Actions::UpdateGoogleDriveFileAction do
       Fastlane::FastFile.new.parse("lane :test do
         update_google_drive_file(drive_keyfile: '#{@key_path}')
       end").runner.execute(:test)
-    end.to raise_error(FastlaneCore::Interface::FastlaneError, "No target file id given, pass using `file_id: 'some_id'`")
+    end.to raise_error(FastlaneCore::Interface::FastlaneError, "No target `file_id` is provided. Pass it using `file_id: 'some_id'`")
   end
 
   it 'raise an error if no upload file was given' do

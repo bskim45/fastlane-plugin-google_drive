@@ -7,12 +7,16 @@ module Fastlane
       GDRIVE_UPDATED_FILE_NAME = :GDRIVE_UPDATED_FILE_NAME
       GDRIVE_UPDATED_FILE_URL = :GDRIVE_UPDATED_FILE_URL
     end
+
     class UpdateGoogleDriveFileAction < Action
       def self.run(params)
-        UI.message("Using credential file: #{params[:drive_keyfile]}")
+        unless params[:drive_keyfile].nil?
+          UI.message("Using credential file: #{params[:drive_keyfile]}")
+        end
 
         session = Helper::GoogleDriveHelper.setup(
           keyfile: params[:drive_keyfile],
+          key_json: params[:drive_key_json],
           service_account: params[:service_account]
         )
 
@@ -46,37 +50,63 @@ module Fastlane
 
       def self.available_options
         [
-          FastlaneCore::ConfigItem.new(key: :drive_keyfile,
-                                      env_name: 'GDRIVE_KEY_FILE',
-                                      description: 'Json config file',
-                                      type: String,
-                                      default_value: 'drive_key.json',
-                                      verify_block: proc do |value|
-                                        UI.user_error!("Couldn't find config keyfile at path '#{value}'") unless File.exist?(value)
-                                      end),
-          FastlaneCore::ConfigItem.new(key: :service_account,
-                                      env_name: 'GDRIVE_SERVICE_ACCOUNT',
-                                      description: 'Credential is service account',
-                                      optional: true,
-                                      is_string: false,
-                                      default_value: false),
-          FastlaneCore::ConfigItem.new(key: :file_id,
-                                      env_name: "GDRIVE_UPDATE_FILE_ID",
-                                      description: "Target file id to update the content",
-                                      optional: false,
-                                      type: String,
-                                      verify_block: proc do |value|
-                                        UI.user_error!("No target file id given, pass using `file_id: 'some_id'`") unless value and !value.empty?
-                                      end),
-          FastlaneCore::ConfigItem.new(key: :upload_file,
-                                      env_name: "GDRIVE_UPLOAD_FILE",
-                                      description: "Path to a file to be uploaded",
-                                      optional: false,
-                                      is_string: false,
-                                      verify_block: proc do |value|
-                                        UI.user_error!("No upload file is given, pass using `upload_file: 'some/path/a.txt'`") unless value and !value.empty?
-                                        UI.user_error!("Couldn't find upload file at path '#{value}'") unless File.exist?(value)
-                                      end)
+          FastlaneCore::ConfigItem.new(
+            key: :drive_keyfile,
+            env_names: ['GDRIVE_KEY_FILE', 'GOOGLE_APPLICATION_CREDENTIALS'],
+            description: 'Path to the JSON keyfile',
+            conflicting_options: [:drive_key_json],
+            type: String,
+            optional: true,
+            verify_block: proc do |value|
+              UI.user_error!("Couldn't find config keyfile at path '#{value}'") unless File.exist?(value)
+              UI.user_error!("'#{value}' doesn't seem to be a valid JSON keyfile") unless FastlaneCore::Helper.json_file?(value)
+            end
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :drive_key_json,
+            env_name: 'GDRIVE_KEY_JSON',
+            description: 'Credential key in stringified JSON format',
+            optional: true,
+            conflicting_options: [:drive_keyfile],
+            type: String,
+            sensitive: true,
+            verify_block: proc do |value|
+              begin
+                JSON.parse(value)
+              rescue JSON::ParserError
+                UI.user_error!("Provided credential key is not a valid JSON")
+              end
+            end
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :service_account,
+            env_name: 'GDRIVE_SERVICE_ACCOUNT',
+            description: 'true if the credential is for a service account, false otherwise',
+            optional: true,
+            is_string: false,
+            default_value: false
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :file_id,
+            env_name: "GDRIVE_UPDATE_FILE_ID",
+            description: "Target file id to update the content",
+            optional: false,
+            type: String,
+            verify_block: proc do |value|
+              UI.user_error!("No target `file_id` is provided. Pass it using `file_id: 'some_id'`") unless value and !value.empty?
+            end
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :upload_file,
+            env_name: "GDRIVE_UPLOAD_FILE",
+            description: "Path to a file to be uploaded",
+            optional: false,
+            is_string: false,
+            verify_block: proc do |value|
+              UI.user_error!("No upload file is given, pass using `upload_file: 'some/path/a.txt'`") unless value and !value.empty?
+              UI.user_error!("Couldn't find upload file at path '#{value}'") unless File.exist?(value)
+            end
+          )
         ]
       end
 
