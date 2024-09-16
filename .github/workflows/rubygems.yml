@@ -70,6 +70,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     env:
       RUBY_VERSION: 2.7
@@ -84,23 +85,29 @@ jobs:
         ruby-version: ${{ env.RUBY_VERSION }}
         bundler-cache: true
 
+    - name: Build gem
+      run: |
+        bundle exec rake build
+
     - name: Publish to GPR
       run: |
         mkdir -p "$HOME/.gem"
         touch "$HOME/.gem/credentials"
         chmod 0600 "$HOME/.gem/credentials"
         printf -- "---\n:github: %s\n" "${GEM_HOST_API_KEY}" > "$HOME/.gem/credentials"
-        gem build -- *.gemspec
-        gem push --KEY github --host "https://rubygems.pkg.github.com/${OWNER}" -- *.gem
-        mkdir -p $HOME/.gem
-        touch $HOME/.gem/credentials
-        chmod 0600 $HOME/.gem/credentials
-        printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-        gem build *.gemspec
-        gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
+        bundle exec gem push --KEY github --host "https://rubygems.pkg.github.com/${OWNER}" pkg/*.gem
       env:
         GEM_HOST_API_KEY: "Bearer ${{secrets.GITHUB_TOKEN}}"
         OWNER: ${{ github.repository_owner }}
 
+    - name: Configure RubyGems credentials
+      uses: rubygems/configure-rubygems-credentials@v1.0.0
+
     - name: Publish to RubyGems
-      uses: rubygems/release-gem@v1
+      run: |
+        bundle exec gem push pkg/*.gem
+
+    # requires ruby >= 3.0
+    # - name: Wait for RubyGems release to propagate
+    #   run: |
+    #     gem exec rubygems-await pkg/*.gem
