@@ -71,6 +71,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     env:
       RUBY_VERSION: 2.7
