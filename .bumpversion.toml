@@ -1,0 +1,11 @@
+[tool.bumpversion]
+commit = true
+message = "chore: bump version {current_version} → {new_version}"
+allow_dirty = true
+tag = true
+sign_tags = true
+tag_name = "v{new_version}"
+tag_message = "chore: bump version {current_version} → {new_version}"
+
+[[tool.bumpversion.files]]
+filename = 'lib/fastlane/plugin/google_drive/version.rb'
