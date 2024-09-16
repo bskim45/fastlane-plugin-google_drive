@@ -14,6 +14,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/bskim45/fastlane-plugin-google_drive"
   spec.license       = "MIT"
 
+  spec.metadata["github_repo"] = "https://github.com/bskim45/fastlane-plugin-google_drive"
+
   spec.required_ruby_version = '>= 2.6'
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
