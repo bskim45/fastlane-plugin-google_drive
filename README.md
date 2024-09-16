@@ -2,7 +2,7 @@
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-google_drive)
 [![Gem Version](https://badge.fury.io/rb/fastlane-plugin-google_drive.svg)](https://badge.fury.io/rb/fastlane-plugin-google_drive)
-[![Build Status](https://app.travis-ci.com/bskim45/fastlane-plugin-google_drive.svg?branch=main)](https://app.travis-ci.com/bskim45/fastlane-plugin-google_drive)
+![Build Status](https://github.com/bskim45/fastlane-plugin-google_drive/actions/workflows/rubygems.yml/badge.svg)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/681ab1f5c19ca029dff4/test_coverage)](https://codeclimate.com/github/bskim45/fastlane-plugin-google_drive/test_coverage)
 
 ## Getting Started
@@ -15,14 +15,15 @@ fastlane add_plugin google_drive
 
 ## About google_drive
 
-> Please refer to [this guide](https://github.com/gimite/google-drive-ruby/blob/master/doc/authorization.md) to create an Google Drive credential.
+> Please refer to [this guide](https://github.com/gimite/google-drive-ruby/blob/master/doc/authorization.md) to create a Google Drive credential.
 
 Upload files to Google Drive folder.
-> Aliases for this action - `google_drive_upload` and `upload_google_drive` are both removed in `v0.6.0`.
 
 ```ruby
 upload_to_google_drive(
   drive_keyfile: 'drive_key.json',
+  # or you can provide the content of JSON keyfile directly as an argument
+  # drive_key_json: __KEYFILE_CONTENT__,
   service_account: true,
   folder_id: 'folder_id',
   upload_files: ['file_to_upload', 'another_file_to_upload']

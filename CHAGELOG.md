@@ -1,5 +1,25 @@
 # CHANGELOG
 
+
+## v0.10.0 (2024-09-16)
+
+### Changelog
+
+#### Breaking Changes
+
+The default value of `drive_keyfile` (`drive_key.json`) is removed.
+Now, **you must specify the key file path manually** via
+the `drive_keyfile` argument or the `GDRIVE_KEY_FILE` environment variable.
+This change applies to all actions.
+
+#### Other Changes
+- Added the argument `drive_key_json` (env: `GDRIVE_KEY_JSON`) to all actions,
+  allowing you to provide the JSON key file content directly.
+
+- You can also specify the path to the JSON key file using 
+  the `GOOGLE_APPLICATION_CREDENTIALS` environment variable,
+  commonly used in other SDKs and libraries.
+
 ## v0.9.0 (2022-12-03)
 
 ### Changelog

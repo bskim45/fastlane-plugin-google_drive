@@ -1,15 +1,18 @@
 require 'fastlane_core/ui/ui'
 require 'google_drive'
+
 module Fastlane
   UI = FastlaneCore::UI unless Fastlane.const_defined?("UI")
 
   module Helper
     class GoogleDriveHelper
-      def self.setup(keyfile: nil, service_account: false)
+      def self.setup(keyfile: nil, key_json: nil, service_account: false)
+        keyfile_or_io = keyfile || StringIO.new(key_json || '')
+
         if service_account
-          ::GoogleDrive::Session.from_service_account_key(keyfile)
+          ::GoogleDrive::Session.from_service_account_key(keyfile_or_io)
         else
-          ::GoogleDrive::Session.from_config(keyfile)
+          ::GoogleDrive::Session.from_config(keyfile_or_io)
         end
       rescue Exception => e
         UI.error(e.message)

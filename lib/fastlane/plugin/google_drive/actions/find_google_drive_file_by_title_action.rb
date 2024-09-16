@@ -8,10 +8,13 @@ module Fastlane
 
     class FindGoogleDriveFileByTitleAction < Action
       def self.run(params)
-        UI.message("Using credential file: #{params[:drive_keyfile]}")
+        unless params[:drive_keyfile].nil?
+          UI.message("Using credential file: #{params[:drive_keyfile]}")
+        end
 
         session = Helper::GoogleDriveHelper.setup(
           keyfile: params[:drive_keyfile],
+          key_json: params[:drive_key_json],
           service_account: params[:service_account]
         )
 
@@ -57,18 +60,36 @@ module Fastlane
         [
           FastlaneCore::ConfigItem.new(
             key: :drive_keyfile,
-            env_name: 'GDRIVE_KEY_FILE',
-            description: 'The path to the json keyfile',
+            env_names: ['GDRIVE_KEY_FILE', 'GOOGLE_APPLICATION_CREDENTIALS'],
+            description: 'Path to the JSON keyfile',
+            conflicting_options: [:drive_key_json],
             type: String,
-            default_value: 'drive_key.json',
+            optional: true,
             verify_block: proc do |value|
               UI.user_error!("Couldn't find config keyfile at path '#{value}'") unless File.exist?(value)
+              UI.user_error!("'#{value}' doesn't seem to be a valid JSON keyfile") unless FastlaneCore::Helper.json_file?(value)
+            end
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :drive_key_json,
+            env_name: 'GDRIVE_KEY_JSON',
+            description: 'Credential key in stringified JSON format',
+            optional: true,
+            conflicting_options: [:drive_keyfile],
+            type: String,
+            sensitive: true,
+            verify_block: proc do |value|
+              begin
+                JSON.parse(value)
+              rescue JSON::ParserError
+                UI.user_error!("Provided credential key is not a valid JSON")
+              end
             end
           ),
           FastlaneCore::ConfigItem.new(
             key: :service_account,
             env_name: 'GDRIVE_SERVICE_ACCOUNT',
-            description: 'Whether the credential file is for the google service account',
+            description: 'true if the credential is for a service account, false otherwise',
             optional: true,
             is_string: false,
             default_value: false
