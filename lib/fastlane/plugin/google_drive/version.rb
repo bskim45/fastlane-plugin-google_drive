@@ -1,6 +1,5 @@
 module Fastlane
   module GoogleDrive
-    # TODO: unbump version
-    VERSION = "0.10.1"
+    VERSION = "0.10.0"
   end
 end
